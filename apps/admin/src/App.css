@@ -1,0 +1,15 @@
+.welcome {
+  font-size: 30px;
+}
+.search-form {
+  @apply bg-white px-4 py-4;
+}
+.base-table {
+  @apply bg-white p-4 text-black mt-4;
+}
+.base-table .header-wrapper {
+  @apply flex justify-between items-center;
+}
+.table-content {
+  @apply mt-4;
+}

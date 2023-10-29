@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#app {
+  @apply h-[100vh] w-full p-0 m-0;
+}
+body {
+  /* background-image: url('/public/bg.svg'); */
+}
+:root {
+  --font-size-base: 0.875rem;
+  --font-family-standard: 'Source Sans Pro', 'Hiragino Sans GB',
+    'Microsoft Yahei', simsun, helvetica, arial, sans-serif, monospace;
+  --font-family-firacode: 'Fira Code', 'Source Sans Pro', 'Hiragino Sans GB',
+    'Microsoft Yahei', simsun, helvetica, arial, sans-serif, monospace;
+}
+.post-imgs {
+  width: 66%;
+  font-size: 0;
+  display: table;
+  margin: 0px -1% 0px -1%;
+}
+.post-img-item {
+  width: 29.33%;
+  margin: 2%;
+  display: inline-block;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
