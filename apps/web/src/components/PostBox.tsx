@@ -4,6 +4,9 @@ import Tag from './Tag';
 import CommentCount from './CommentCount';
 import SeeCount from './SeeCount';
 import LikeCount from './LikeCount';
+import CommentInput from './CommentInput';
+import CommentBox from './CommentBox';
+import { Separator } from '@radix-ui/themes';
 
 const PostBox = () => {
   return (
@@ -58,6 +61,11 @@ const PostBox = () => {
         <CommentCount num={10} className="mr-4" />
         <SeeCount num={10} className="mr-4" />
         <LikeCount num={98} checked />
+      </div>
+      <div className="mt-4 ml-14 pt-5">
+        <CommentInput />
+        <Separator my="3" size="4" />
+        <CommentBox />
       </div>
     </div>
   );

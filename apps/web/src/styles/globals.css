@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('@radix-ui/themes/styles.css');
 
 html,
 body,
@@ -8,7 +9,7 @@ body,
   @apply h-[100vh] w-full p-0 m-0;
 }
 body {
-  /* background-image: url('/public/bg.svg'); */
+  background-image: url('/public/bg.svg');
 }
 :root {
   --font-size-base: 0.875rem;

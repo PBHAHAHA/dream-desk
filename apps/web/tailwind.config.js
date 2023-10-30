@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+const radixThemePreset = require('radix-themes-tw');
 module.exports = {
   darkMode: ['class'],
+  presets: [radixThemePreset],
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
