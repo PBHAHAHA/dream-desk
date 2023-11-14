@@ -6,6 +6,7 @@ import Error403 from '@/views/403';
 import Layout from '@/layout';
 import Dashboard from '@/views/dashboard';
 import User from '@/views/user';
+import Posts from '@/views/posts';
 
 const routes = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const routes = createBrowserRouter([
       {
         path: '/user',
         element: <User />
+      },
+      {
+        path: '/posts',
+        element: <Posts />
       }
     ]
   },

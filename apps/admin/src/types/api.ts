@@ -14,3 +14,23 @@ export namespace User {
     nickname: string;
   }
 }
+
+export namespace Posts {
+  export interface PostsItem {
+    id?: string;
+    title: string;
+    body: string;
+    summary?: string;
+  }
+}
+
+export namespace Category {
+  export interface CategoryItem {
+    id: string;
+    name: string;
+    customOrder: string;
+    depth: 0;
+    parent: string;
+    children: CategoryItem[];
+  }
+}
