@@ -21,6 +21,10 @@ export namespace Posts {
     title: string;
     body: string;
     summary?: string;
+    category: {
+      id: string;
+      name: string;
+    };
   }
 }
 

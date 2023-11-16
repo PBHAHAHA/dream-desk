@@ -62,5 +62,12 @@ export default {
       NProgress.done();
       return Promise.reject(err.response.data);
     });
+  },
+  patch<T>(url: string, data?: object): Promise<T> | Promise<any> {
+    return instance.patch(url, data).catch(err => {
+      // message.error(err.message);
+      NProgress.done();
+      return Promise.reject(err.response.data);
+    });
   }
 };

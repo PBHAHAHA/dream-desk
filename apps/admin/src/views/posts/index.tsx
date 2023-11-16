@@ -1,33 +1,54 @@
 import { Button, Form, Input, Table } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
-import React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ColumnsType } from 'antd/es/table';
 import CreatePosts from './CreatePosts';
+import { IAction } from '@/types/modal';
+import { getPostsApi } from '@/api/posts';
+import { PaginateOptions } from '@/types/common';
+import moment from 'moment';
 
-const User = () => {
-  interface DataType {
-    key: string;
-    name: string;
-    money: string;
-    address: string;
-  }
+interface SearchParamsProps extends PaginateOptions {
+  [key: string]: any;
+}
+const Posts = () => {
+  const [searchParams, setSearchParams] = useState<SearchParamsProps>({
+    page: 1,
+    limit: 10,
+    search: ''
+  });
 
-  const columns: ColumnsType<DataType> = [
+  const columns: ColumnsType<any> = [
     {
       title: '文章标题',
-      dataIndex: 'name',
+      dataIndex: 'title',
       render: text => <a>{text}</a>
       // align: 'center'
     },
     {
       title: '文章概览',
       className: 'column-money',
-      dataIndex: 'money'
+      dataIndex: 'summary'
       // align: 'center'
     },
     {
+      title: '文章类型',
+      dataIndex: 'category',
+      render: category => <p>{category.name}</p>
+    },
+    {
+      title: '文本类型',
+      dataIndex: 'type'
+    },
+    {
       title: '创建时间',
-      dataIndex: 'address'
+      dataIndex: 'createdAt',
+      render: time => <p>{moment(time).format('YYYY-MM-DD HH:mm:ss')}</p>
+    },
+    {
+      title: '更新时间',
+      dataIndex: 'updateAt',
+      render: time => <p>{moment(time).format('YYYY-MM-DD HH:mm:ss')}</p>
     },
     {
       title: '操作',
@@ -35,43 +56,42 @@ const User = () => {
       fixed: 'right',
       align: 'center',
       width: 100,
-      render: () => (
+      render: data => (
         <div>
-          <a className='mr-2'>删除</a>
-          <a href=''>禁用</a>
+          <a className='mr-2' onClick={() => handleUpdate(data)}>
+            更新
+          </a>
+          <a href='#'>删除</a>
         </div>
       )
     }
   ];
+  const [tableData, setTableData] = useState<any[]>([]);
 
-  const data: DataType[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-      money: '￥300,000.00',
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      money: '￥1,256,000.00',
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      money: '￥120,000.00',
-      address: 'Sydney No. 1 Lake Park'
-    }
-  ];
+  // 点击新增文章
+  const postsRef = useRef<{
+    open: (type: IAction, data?: any) => void | undefined;
+  }>(null);
+  const handleCreate = () => {
+    postsRef.current?.open('create');
+  };
+  const handleUpdate = (data: any) => {
+    postsRef.current?.open('edit', data);
+  };
+
+  // 获取文章列表
+  const getPostsList = async (params: SearchParamsProps) => {
+    const data = await getPostsApi(params);
+    setTableData(data.items);
+  };
+  useEffect(() => {
+    getPostsList(searchParams);
+  }, []);
   return (
     <div>
       <div className='search-form'>
         <Form layout='inline'>
-          <Form.Item name='username' label='用户名'>
-            <Input />
-          </Form.Item>
-          <Form.Item name='username' label='用户昵称'>
+          <Form.Item name='title' label='文章标题'>
             <Input />
           </Form.Item>
           <Form.Item>
@@ -84,16 +104,24 @@ const User = () => {
       <div className='base-table'>
         <div className='header-wrapper'>
           <div>文章列表</div>
-          <Button onClick={() => {}}>新增</Button>
+          <Button onClick={handleCreate}>新增</Button>
           {/* <Button></Button> */}
         </div>
         <div className='table-content'>
-          <Table columns={columns} dataSource={data} />
+          <Table columns={columns} dataSource={tableData} />
         </div>
       </div>
-      <CreatePosts />
+      <CreatePosts
+        mRef={postsRef}
+        update={() => {
+          getPostsList({
+            page: 1,
+            limit: 10
+          });
+        }}
+      />
     </div>
   );
 };
 
-export default User;
+export default Posts;
