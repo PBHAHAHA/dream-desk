@@ -17,7 +17,7 @@ export default defineConfig({
     host: '127.0.0.1',
     port: 9999,
     proxy: {
-      '/api': 'http://127.0.0.1:3100/'
+      '/api': 'http://101.43.27.141:3100'
     }
   }
 });
